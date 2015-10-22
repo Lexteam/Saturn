@@ -44,6 +44,15 @@ public interface Game {
     String getVersion();
 
     /**
+     * Gets the game's type.
+     * This represents the side of Minecraft of which Saturn is running.
+     *
+     * @return the game's type.
+     * @since 1.0
+     */
+    Type getType();
+
+    /**
      * Gets the game's service manager.
      * See {@link ServiceManager} for more information on what a service manager does.
      *
@@ -51,4 +60,27 @@ public interface Game {
      * @since 1.0
      */
     ServiceManager getServiceManager();
+
+    /**
+     * Represents the side of Minecraft, of which Saturn is running on.
+     *
+     * @since 1.0
+     * @author Jamie Mansfield
+     */
+    enum Type {
+
+        /**
+         * This means that Saturn in running on a Minecraft CLIENT.
+         *
+         * @since 1.0
+         */
+        CLIENT,
+
+        /**
+         * This means that Saturn in running on a Minecraft SERVER.
+         *
+         * @since 1.0
+         */
+        SERVER;
+    }
 }
