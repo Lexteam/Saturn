@@ -1,0 +1,3 @@
+rootProject.name = 'Saturn'
+include 'Meta', 'API', 'Common'
+

@@ -1,0 +1,3 @@
+[submodule "Meta"]
+	path = Meta
+	url = git@github.com:Lexteam/Meta.git

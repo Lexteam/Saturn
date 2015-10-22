@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+apply plugin: 'com.github.hierynomus.license'
+
+dependencies {
+    compile project(':Meta')
+}
+
+license {
+    header rootProject.file('HEADER.txt')
+    include '**/*.java'
+    include '**/*.groovy'
+
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}

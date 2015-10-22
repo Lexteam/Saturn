@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+
+    id 'idea'
+    id 'eclipse'
+
+    id 'com.github.hierynomus.license' version '0.11.0'
+}
+
+allprojects {
+    version = '1.0-SNAPSHOT'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+license {
+    header file('HEADER.txt')
+    include '**/*.java'
+    include '**/*.groovy'
+
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.8'
+}
