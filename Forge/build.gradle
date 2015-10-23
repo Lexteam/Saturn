@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            name = 'forge'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+        maven {
+            name = 'minecrell-snapshots'
+            url = 'http://repo.minecrell.net/snapshots'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+plugins {
+    id 'java'
+}
+apply plugin: 'forge'
+apply plugin: 'com.github.hierynomus.license'
+
+minecraft {
+    version = '1.8-11.14.3.1450'
+    mappings = 'snapshot_20150717'
+}
+
+dependencies {
+    compile project(':Common')
+}
+
+license {
+    header rootProject.file('HEADER.txt')
+    include '**/*.java'
+    include '**/*.groovy'
+
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
+

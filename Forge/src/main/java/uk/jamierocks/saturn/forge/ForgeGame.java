@@ -21,38 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.saturn.common;
+package uk.jamierocks.saturn.forge;
 
-import net.minecraft.server.MinecraftServer;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import uk.jamierocks.saturn.api.Game;
 import uk.jamierocks.saturn.api.service.ServiceManager;
+import uk.jamierocks.saturn.common.SaturnGame;
 
 /**
- * The common implementation of {@link Game}.
+ * The Forge implementation of {@link Game}.
  *
  * @author Jamie Mansfield
  */
-public abstract class SaturnGame implements Game {
+public class ForgeGame extends SaturnGame {
 
-    private final ServiceManager serviceManager;
-
-    public SaturnGame(ServiceManager serviceManager) {
-        this.serviceManager = serviceManager;
+    public ForgeGame(ServiceManager serviceManager) {
+        super(serviceManager);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String getVersion() {
-        return MinecraftServer.getServer().getMinecraftVersion();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ServiceManager getServiceManager() {
-        return this.serviceManager;
+    public Type getType() {
+        switch (FMLCommonHandler.instance().getSide()) {
+            case CLIENT:
+                return Type.CLIENT;
+            case SERVER:
+            default:
+                return Type.SERVER;
+        }
     }
 }

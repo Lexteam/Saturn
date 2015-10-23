@@ -21,38 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.saturn.common;
+package uk.jamierocks.saturn.forge;
 
-import net.minecraft.server.MinecraftServer;
-import uk.jamierocks.saturn.api.Game;
-import uk.jamierocks.saturn.api.service.ServiceManager;
+import net.minecraftforge.fml.common.DummyModContainer;
+import net.minecraftforge.fml.common.ModMetadata;
 
-/**
- * The common implementation of {@link Game}.
- *
- * @author Jamie Mansfield
- */
-public abstract class SaturnGame implements Game {
+public class ForgeMod extends DummyModContainer {
 
-    private final ServiceManager serviceManager;
-
-    public SaturnGame(ServiceManager serviceManager) {
-        this.serviceManager = serviceManager;
+    public ForgeMod() {
+        super(new ModMetadata());
+        this.getMetadata().name = "SaturnForge";
+        this.getMetadata().modId = "SaturnForge";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String getVersion() {
-        return MinecraftServer.getServer().getMinecraftVersion();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public ServiceManager getServiceManager() {
-        return this.serviceManager;
+    public Object getMod() {
+        return this;
     }
 }

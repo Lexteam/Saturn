@@ -1,3 +1,3 @@
 rootProject.name = 'Saturn'
-include 'Meta', 'API', 'Common'
+include 'Meta', 'API', 'Common', 'Forge'
 

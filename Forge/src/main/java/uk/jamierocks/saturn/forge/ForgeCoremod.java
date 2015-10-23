@@ -21,38 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.saturn.common;
+package uk.jamierocks.saturn.forge;
 
-import net.minecraft.server.MinecraftServer;
-import uk.jamierocks.saturn.api.Game;
-import uk.jamierocks.saturn.api.service.ServiceManager;
+import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
-/**
- * The common implementation of {@link Game}.
- *
- * @author Jamie Mansfield
- */
-public abstract class SaturnGame implements Game {
+import java.util.Map;
 
-    private final ServiceManager serviceManager;
+public class ForgeCoremod implements IFMLLoadingPlugin {
 
-    public SaturnGame(ServiceManager serviceManager) {
-        this.serviceManager = serviceManager;
+    @Override
+    public String[] getASMTransformerClass() {
+        return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public String getVersion() {
-        return MinecraftServer.getServer().getMinecraftVersion();
+    public String getModContainerClass() {
+        return "uk.jamierocks.saturn.forge.ForgeMod";
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public ServiceManager getServiceManager() {
-        return this.serviceManager;
+    public String getSetupClass() {
+        return null;
+    }
+
+    @Override
+    public void injectData(Map<String, Object> data) {
+
+    }
+
+    @Override
+    public String getAccessTransformerClass() {
+        return null;
     }
 }
