@@ -21,44 +21,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.saturn.forge;
+package uk.jamierocks.saturn.common.command;
 
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.mixin.MixinEnvironment;
+import com.google.common.collect.Lists;
+import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
+import net.minecraft.command.ICommandSender;
+import uk.jamierocks.saturn.api.command.CommandCallable;
 
-import java.util.Map;
+import java.util.List;
 
-public class ForgeCoremod implements IFMLLoadingPlugin {
+public class MinecraftCommandCallable extends CommandBase {
 
-    public ForgeCoremod() {
-        MixinBootstrap.init();
-        MixinEnvironment.getCurrentEnvironment()
-                .addConfiguration("mixin.common.json");
+    private final CommandCallable callable;
+    private final String name;
+    private final String[] aliases;
+
+    public MinecraftCommandCallable(CommandCallable callable, String name, String[] aliases) {
+        this.callable = callable;
+        this.name = name;
+        this.aliases = aliases;
     }
 
     @Override
-    public String[] getASMTransformerClass() {
-        return null;
+    public String getCommandName() {
+        return this.name;
     }
 
     @Override
-    public String getModContainerClass() {
-        return "uk.jamierocks.saturn.forge.ForgeMod";
+    public List getCommandAliases() {
+        return Lists.newArrayList(this.aliases);
     }
 
     @Override
-    public String getSetupClass() {
-        return null;
+    public String getCommandUsage(ICommandSender sender) {
+        return "";
     }
 
     @Override
-    public void injectData(Map<String, Object> data) {
-
-    }
-
-    @Override
-    public String getAccessTransformerClass() {
-        return null;
+    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+        String arguments = "";
+        for (String a : args) {
+            arguments = arguments.concat(a + " ");
+        }
+        this.callable.execute(new SaturnCommandSender(sender), arguments);
     }
 }

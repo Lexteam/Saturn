@@ -21,44 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.saturn.forge;
+package uk.jamierocks.saturn.common.command;
 
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.mixin.MixinEnvironment;
+import net.minecraft.command.ICommandSender;
+import net.minecraft.util.ChatComponentText;
+import uk.jamierocks.saturn.api.command.CommandSender;
 
-import java.util.Map;
+/**
+ * A wrapper around {@link ICommandSender}.
+ *
+ * @author Jamie Mansfield
+ */
+public class SaturnCommandSender implements CommandSender {
 
-public class ForgeCoremod implements IFMLLoadingPlugin {
+    private final ICommandSender commandSender;
 
-    public ForgeCoremod() {
-        MixinBootstrap.init();
-        MixinEnvironment.getCurrentEnvironment()
-                .addConfiguration("mixin.common.json");
+    public SaturnCommandSender(ICommandSender commandSender) {
+        this.commandSender = commandSender;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String[] getASMTransformerClass() {
-        return null;
-    }
-
-    @Override
-    public String getModContainerClass() {
-        return "uk.jamierocks.saturn.forge.ForgeMod";
-    }
-
-    @Override
-    public String getSetupClass() {
-        return null;
-    }
-
-    @Override
-    public void injectData(Map<String, Object> data) {
-
-    }
-
-    @Override
-    public String getAccessTransformerClass() {
-        return null;
+    public void sendMessage(String... message) {
+        for (String msg : message) {
+            this.commandSender.addChatMessage(new ChatComponentText(msg));
+        }
     }
 }

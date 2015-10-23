@@ -21,44 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.saturn.forge;
+package uk.jamierocks.saturn.api.service.command;
 
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.mixin.MixinEnvironment;
+import uk.jamierocks.saturn.api.command.CommandCallable;
 
-import java.util.Map;
+/**
+ * The command service, this is where commands are registered.
+ *
+ * @since 1.0
+ * @author Jamie Mansfield
+ */
+public interface CommandService {
 
-public class ForgeCoremod implements IFMLLoadingPlugin {
-
-    public ForgeCoremod() {
-        MixinBootstrap.init();
-        MixinEnvironment.getCurrentEnvironment()
-                .addConfiguration("mixin.common.json");
-    }
-
-    @Override
-    public String[] getASMTransformerClass() {
-        return null;
-    }
-
-    @Override
-    public String getModContainerClass() {
-        return "uk.jamierocks.saturn.forge.ForgeMod";
-    }
-
-    @Override
-    public String getSetupClass() {
-        return null;
-    }
-
-    @Override
-    public void injectData(Map<String, Object> data) {
-
-    }
-
-    @Override
-    public String getAccessTransformerClass() {
-        return null;
-    }
+    /**
+     * Registers said command with the given aliases.
+     *
+     * @param command the command which is to be registered.
+     * @param aliases the aliases the command is to be registered with.
+     * @since 1.0
+     */
+    void registerCommand(CommandCallable command, String name, String... aliases);
 }

@@ -21,44 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.saturn.forge;
+package uk.jamierocks.saturn.common.mixin.command;
 
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.mixin.MixinEnvironment;
+import net.minecraft.command.CommandHandler;
+import net.minecraft.command.ICommand;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import uk.jamierocks.saturn.api.command.CommandCallable;
+import uk.jamierocks.saturn.api.service.command.CommandService;
+import uk.jamierocks.saturn.common.command.MinecraftCommandCallable;
 
-import java.util.Map;
+@Mixin(CommandHandler.class)
+public abstract class MixinCommandHandler implements CommandService {
 
-public class ForgeCoremod implements IFMLLoadingPlugin {
-
-    public ForgeCoremod() {
-        MixinBootstrap.init();
-        MixinEnvironment.getCurrentEnvironment()
-                .addConfiguration("mixin.common.json");
-    }
-
-    @Override
-    public String[] getASMTransformerClass() {
-        return null;
-    }
+    @Shadow
+    public abstract ICommand registerCommand(ICommand command);
 
     @Override
-    public String getModContainerClass() {
-        return "uk.jamierocks.saturn.forge.ForgeMod";
-    }
-
-    @Override
-    public String getSetupClass() {
-        return null;
-    }
-
-    @Override
-    public void injectData(Map<String, Object> data) {
-
-    }
-
-    @Override
-    public String getAccessTransformerClass() {
-        return null;
+    public void registerCommand(CommandCallable command, String name, String... aliases) {
+        this.registerCommand(new MinecraftCommandCallable(command, name, aliases));
     }
 }

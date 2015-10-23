@@ -21,44 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package uk.jamierocks.saturn.forge;
+package uk.jamierocks.saturn.api.command;
 
-import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
-import org.spongepowered.asm.launch.MixinBootstrap;
-import org.spongepowered.asm.mixin.MixinEnvironment;
+/**
+ * Represents a command that can be executed.
+ *
+ * @since 1.0
+ * @author Jamie Mansfield
+ */
+public interface CommandCallable {
 
-import java.util.Map;
-
-public class ForgeCoremod implements IFMLLoadingPlugin {
-
-    public ForgeCoremod() {
-        MixinBootstrap.init();
-        MixinEnvironment.getCurrentEnvironment()
-                .addConfiguration("mixin.common.json");
-    }
-
-    @Override
-    public String[] getASMTransformerClass() {
-        return null;
-    }
-
-    @Override
-    public String getModContainerClass() {
-        return "uk.jamierocks.saturn.forge.ForgeMod";
-    }
-
-    @Override
-    public String getSetupClass() {
-        return null;
-    }
-
-    @Override
-    public void injectData(Map<String, Object> data) {
-
-    }
-
-    @Override
-    public String getAccessTransformerClass() {
-        return null;
-    }
+    /**
+     * Executes said command.
+     *
+     * @param sender the sender which is executing the command.
+     * @param arguments the arguments, excluding the command alias.
+     * @since 1.0
+     */
+    void execute(CommandSender sender, String arguments);
 }

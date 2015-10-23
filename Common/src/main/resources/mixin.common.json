@@ -1,0 +1,6 @@
+{
+    "package": "uk.jamierocks.saturn.common.mixin",
+    "mixins": [
+        "command.MixinCommandHandler"
+    ]
+}
