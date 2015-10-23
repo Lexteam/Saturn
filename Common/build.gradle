@@ -1,7 +1,30 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            name = 'forge'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+        maven {
+            name = 'minecrell-snapshots'
+            url = 'http://repo.minecrell.net/snapshots'
+        }
+    }
+    dependencies {
+        classpath 'net.minecrell:VanillaGradle:1.0.1-SNAPSHOT'
+    }
+}
 plugins {
     id 'java'
 }
+apply plugin: 'net.minecrell.vanilla.base'
 apply plugin: 'com.github.hierynomus.license'
+
+minecraft {
+    version = '1.8'
+    mappings = 'snapshot_20150717'
+}
 
 dependencies {
     compile project(':API')
